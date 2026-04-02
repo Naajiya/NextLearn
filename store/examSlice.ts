@@ -77,7 +77,7 @@ const examSlice = createSlice({
       state.markPerAnswer = action.payload.mark_per_each_answer;
       state.instruction = action.payload.instruction;
       state.answers = action.payload.questions.map((q) => ({
-        question_id: q.question_id, // ✅ fixed from q.id
+        question_id: q.question_id,
         selected_option_id: null,
       }));
     },

@@ -30,12 +30,10 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    // Called after send-otp — just saves the mobile number
     setMobile(state, action: PayloadAction<string>) {
       state.mobile = action.payload;
     },
 
-    // Called after verify-otp or create-profile — saves tokens
     setCredentials(
       state,
       action: PayloadAction<{
@@ -49,17 +47,14 @@ const authSlice = createSlice({
       state.user = action.payload.user || null;
       state.isAuthenticated = true;
 
-      // Persist tokens in cookies
       Cookies.set('access_token', action.payload.access_token);
       Cookies.set('refresh_token', action.payload.refresh_token);
     },
 
-    // Called after create-profile — saves user details
     setUser(state, action: PayloadAction<User>) {
       state.user = action.payload;
     },
 
-    // Called on logout
     logout(state) {
       state.mobile = '';
       state.token = null;

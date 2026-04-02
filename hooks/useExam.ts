@@ -27,22 +27,19 @@ export default function useExam() {
     const [pageLoading, setPageLoading] = useState(true);
     const [submitLoading, setSubmitLoading] = useState(false);
     const [timer, setTimer] = useState(0);
-
-    // ✅ Ref to track if time up already handled — prevent double trigger
     const timeUpHandled = useRef(false);
 
-    // ✅ Timer resets for each question
     useEffect(() => {
         if (questions.length === 0) return;
 
         setTimer(timePerQuestion);
-        timeUpHandled.current = false; // reset for each question
+        timeUpHandled.current = false;
 
         const interval = setInterval(() => {
             setTimer((prev) => {
                 if (prev <= 1) {
                     clearInterval(interval);
-                    return 0; // ✅ only return 0 — no dispatch here
+                    return 0;
                 }
                 return prev - 1;
             });
@@ -50,14 +47,6 @@ export default function useExam() {
 
         return () => clearInterval(interval);
     }, [currentIndex, questions]);
-
-    // ✅ Separate effect watches timer = 0 and triggers time up
-    // useEffect(() => {
-    //     if (timer === 0 && questions.length > 0 && !pageLoading && !timeUpHandled.current) {
-    //         timeUpHandled.current = true;
-    //         handleTimeUp();
-    //     }
-    // }, [timer]);
 
     const fetchQuestions = async () => {
         setPageLoading(true);
@@ -90,28 +79,6 @@ export default function useExam() {
             question_id: questionId,
             selected_option_id: optionId,
         }));
-    };
-
-    const handleTimeUp = () => {
-        const currentQuestion = questions[currentIndex];
-        if (!currentQuestion) return;
-
-        const alreadyAnswered = answers.find(
-            (a) => a.question_id === currentQuestion.question_id
-        )?.selected_option_id;
-
-        if (!alreadyAnswered) {
-            dispatch(setAnswer({
-                question_id: currentQuestion.question_id,
-                selected_option_id: null,
-            }));
-        }
-
-        if (currentIndex < questions.length - 1) {
-            dispatch(nextQuestion());
-        } else {
-            handleSubmit();
-        }
     };
 
     const handleNext = () => {

@@ -6,7 +6,7 @@ export const sendOTP = (mobile: string) => {
   return api.post('/auth/send-otp', form);
 };
 
-export const verifyOTP = (mobile: string, otp: string) => {
+export const verifyOTP = (mobile: any, otp: string) => {
   const form = new FormData();
   form.append('mobile', mobile);
   form.append('otp', otp);
@@ -14,7 +14,7 @@ export const verifyOTP = (mobile: string, otp: string) => {
 };
 
 export const createProfile = (data: {
-  mobile: string; name: string; email: string;
+  mobile: any; name: string; email: string;
   qualification: string; profile_image: File;
 }) => {
   const form = new FormData();

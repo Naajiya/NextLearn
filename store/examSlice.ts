@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface Option {
-  option_id: number;
+  id: number;
   option: string;
 }
 

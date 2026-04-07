@@ -1,12 +1,18 @@
 'use client'
 import Header from '@/components/Header'
+import useExam from '@/hooks/useExam'
 import { useRouter } from 'next/navigation'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 function page() {
+    const { fetchQuestions, questions,pageLoading } = useExam()
     const router = useRouter()
 
-    function goToQuestion(){
+    useEffect(() => {
+        fetchQuestions
+    }, [])
+
+    function goToQuestion() {
         router.push('/exam/question')
     }
     return (
@@ -31,19 +37,25 @@ function page() {
                 '>
                         <div className='text-center'>
                             <p className='text-sm text-gray-300'>Total MCQ's:</p>
-                            <h3 className='text-2xl md:text-3xl font-semibold'>100</h3>
+                            <h3 className='text-2xl md:text-3xl font-semibold'>
+                                {questions.length}
+                            </h3>
                         </div>
                         <div className="hidden md:block w-px h-10 bg-gray-400"></div>
                         <div className="block md:hidden w-full h-px bg-gray-400"></div>
                         <div className='text-center'>
                             <p className='text-sm text-gray-300'>Total marks:</p>
-                            <h3 className='text-2xl md:text-3xl font-semibold'>100</h3>
+                            <h3 className='text-2xl md:text-3xl font-semibold'>
+                                {questions.length}
+                            </h3>
                         </div>
                         <div className="hidden md:block w-px h-10 bg-gray-400"></div>
                         <div className="block md:hidden w-full h-px bg-gray-400"></div>
                         <div className='text-center'>
                             <p className='text-sm text-gray-300'>Total time:</p>
-                            <h3 className='text-2xl md:text-3xl font-semibold'>90:00</h3>
+                            <h3 className='text-2xl md:text-3xl font-semibold'>
+                                {questions.length}:00
+                            </h3>
                         </div>
 
                     </div>
@@ -51,8 +63,8 @@ function page() {
                         <p className=''>Instructions:</p>
                         <div className='mt-3'>
                             <ol className="list-decimal text-sm pl-5 space-y-2">
-                                <li>You have 100 minutes to complete the test.</li>
-                                <li>Test consists of 100 multiple-choice questions.</li>
+                                <li>You have {questions.length} minutes to complete the test.</li>
+                                <li>Test consists of {questions.length} multiple-choice questions.</li>
                                 <li>You are allowed 2 retest attempts if you do not pass on the first try.</li>
                                 <li>Each incorrect answer will incur a negative mark of -1/4.</li>
                                 <li>Ensure you are in a quiet environment and have a stable internet connection.</li>

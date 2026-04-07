@@ -52,6 +52,7 @@ export default function useExam() {
         setPageLoading(true);
         try {
             const res = await listQuestions();
+            
             console.log(res, 'response from fetch')
             if (res.data.success) {
                 dispatch(setQuestions({

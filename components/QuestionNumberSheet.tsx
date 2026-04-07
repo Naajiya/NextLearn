@@ -14,7 +14,7 @@ function QuestionNumberSheet() {
     }, [questions])
 
     return (
-        <div className=''>
+        <div className='h-full'>
             <div className='flex justify-between items-center px-5'>
                 <p className='text-sm'>Question No. Sheet:</p>
                 <div className='flex items-center justify-center gap-2'>
@@ -25,7 +25,7 @@ function QuestionNumberSheet() {
                 </div>
 
             </div>
-            <div className=''>
+            <div className='flex flex-col justify-between h-full'>
                  <div className='px-5 mt-3 flex gap-2'>
                 {
                     questions.map((item,index )=> (
@@ -37,9 +37,25 @@ function QuestionNumberSheet() {
                     ))
                 }
                  </div >
+                 <div className='flex items-center justify-between mt-3'>
+                    <div className='flex gap-1 items-center px-5'>
+                        <div className='w-[16] h-[16] bg-[#4CAF50]'></div>
+                        <p className='text-sm font-normal'>Completed</p>
+                    </div>
+                    <div className='flex gap-1 items-center px-5'>
+                        <div className='w-[16] h-[16] bg-red-500'></div>
+                        <p className='text-sm font-normal'>Preview</p>
+                    </div>
+                    <div className='flex gap-1 items-center px-5'>
+                        <div className='w-[16] h-[16] bg-[#4CAF50]'></div>
+                        <p className='text-sm font-normal'>Completed</p>
+                    </div>
+                    <div className='flex gap-1 items-center px-5'>
+                        <div className='w-[16] h-[16] bg-[#4CAF50]'></div>
+                        <p className='text-sm font-normal'>Completed</p>
+                    </div>
+                 </div>
             </div>
-
-
         </div>
     )
 }
